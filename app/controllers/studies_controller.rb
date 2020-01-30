@@ -1,9 +1,58 @@
 class StudiesController < ApplicationController
+  def subject_times(seq)
+    p = r = c = f = 0
+    seq.size.times do |n|
+      t = seq[n].ended_at - seq[n].started_at
+      t = (t / 3600).round(2)
+      case seq[n].subject
+      when "Progate"
+        p += t
+      when "Railstutorial"
+        r += t
+      when "CherryBook"
+        c += t
+      when "Flashcards"
+        f += t
+      else
+      end
+    end
+    subject_times = [p, r, c, f]
+    subject_times.map { |e| e.to_i }
+  end
+
   def chart
-    # first_day = Time.zone.today
-    # date = []
-    #
+    seq = Study.all
+    firstday = Time.zone.parse('2019-04-23').to_date
+    dates = (Time.zone.today.to_date - firstday).to_i
+    x_dates = {}
+    dates.times do |n|
+      x_dates[(firstday + n).to_s] = 0
+    end
+    seq.size.times do |n|
+      t = seq[n].ended_at - seq[n].started_at
+      x_dates[seq[n].started_at.to_date.to_s] =+ (t / 3600).round(2)
+    end
+
+    date = []
+    time = []
+    total = 0
+    x_dates.each do |key, value|
+      date << key
+      time << value
+      total += value
+    end
+
+    @chart0 = LazyHighCharts::HighChart.new("graph") do |c|
+      c.title(text: "Railsの勉強時間")
+      c.xAxis(categories: date)
+      c.series(name: "total: #{total.to_i} 時間", data: time)
+      c.chart(type: "column")
+    end
+
+    @subject_times = subject_times(seq)
+
     # seq = Study.all
+    # date = []
     # time = []
     #
     # seq.size.times do |n|
@@ -17,22 +66,6 @@ class StudiesController < ApplicationController
     #   c.xAxis(categories: date)
     #   c.series(name: "total", data: time)
     # end
-
-    seq = Study.all
-    date = []
-    time = []
-
-    seq.size.times do |n|
-      date << seq[n].started_at.to_date
-      t = seq[n].ended_at - seq[n].started_at
-      time << (t / 3600).round(2)
-    end
-
-    @chart0 = LazyHighCharts::HighChart.new("graph") do |c|
-      c.title(text: "Railsの勉強時間")
-      c.xAxis(categories: date)
-      c.series(name: "total", data: time)
-    end
 
 
     # wseq = Waitday.group(:wait_sequence).where(quizcard_id: User.first.quizcards.select("id")).count
