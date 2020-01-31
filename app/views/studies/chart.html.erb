@@ -1,6 +1,7 @@
 <h1>学習時間</h1>
 <p>Ruby on Rails</p>
 <%= high_chart("my_chart0", @chart0) %>
+<p>合計: <%= @subject_times.inject(:+) %></p>
 <p>Progate: <%= @subject_times[0] %></p>
 <p>Rails Tutorial: <%= @subject_times[1] %></p>
 <p>プロを目指す人のためのRuby入門: <%= @subject_times[2] %></p>

@@ -1,9 +1,62 @@
 class StudiesController < ApplicationController
+  def total_chart(seq, x_months, chart_sub)
+    x_months.keys.each { |e| x_months[e] = 0 }
+    seq.size.times do |n|
+      t = seq[n].ended_at - seq[n].started_at
+      if chart_sub == :total
+        # debugger
+        x_months[seq[n].started_at.month.to_s] += t
+      else
+        case seq[n].subject
+        when chart_sub
+          x_months[seq[n].started_at.month.to_s] += t
+        end
+      end
+    end
+    x_months.keys.each { |e| x_months[e] = (x_months[e] / 3600).round(2) }
+
+    date = []
+    time = []
+    total = 0
+    x_months.each do |key, value|
+      date << key
+      time << value
+      total += value
+    end
+    { :date=>date, :time=>time, :total=>total }
+  end
+
+
+  def total_chart_day(seq, x_dates, chart_sub)
+    x_dates.keys.each { |e| x_dates[e] = 0 }
+    seq.size.times do |n|
+      t = seq[n].ended_at - seq[n].started_at
+      if chart_sub == :total
+        x_dates[seq[n].started_at.to_date.to_s] += t
+      else
+        case seq[n].subject
+        when chart_sub
+          x_dates[seq[n].started_at.to_date.to_s] += t
+        end
+      end
+    end
+    x_dates.keys.each { |e| x_dates[e] = (x_dates[e] / 3600).round(2) }
+
+    date = []
+    time = []
+    total = 0
+    x_dates.each do |key, value|
+      date << key
+      time << value
+      total += value
+    end
+    { :date=>date, :time=>time, :total=>total }
+  end
+
   def subject_times(seq)
     p = r = c = f = 0
     seq.size.times do |n|
       t = seq[n].ended_at - seq[n].started_at
-      t = (t / 3600).round(2)
       case seq[n].subject
       when "Progate"
         p += t
@@ -16,11 +69,46 @@ class StudiesController < ApplicationController
       else
       end
     end
-    subject_times = [p, r, c, f]
-    subject_times.map { |e| e.to_i }
+    subject_times = [p, r, c, f].map { |e| (e / 3600).to_i }
   end
 
   def chart
+    seq = Study.all
+    firstmonth = Time.zone.parse('2019-04-23').month
+    months = Time.zone.today.month - firstmonth + 1
+    months += 12 if months < 1
+
+    x_months = {}
+    months.times do |n|
+      key = firstmonth + n
+      key -= 12 if key > 12
+      x_months[(key).to_s] = 0
+    end
+
+    total_chart = total_chart(seq, x_months, :total)
+    progate_chart = total_chart(seq, x_months, "Progate")
+    railstutorial_chart = total_chart(seq, x_months, "Railstutorial")
+    cherrybook_chart = total_chart(seq, x_months, "CherryBook")
+    flashcards_chart = total_chart(seq, x_months, "Flashcards")
+
+    @chart0 = LazyHighCharts::HighChart.new("graph") do |c|
+      c.title(text: "Railsの勉強時間")
+      c.xAxis(categories: total_chart[:date])
+      c.series(name: "total: #{total_chart[:total].to_i} 時間", data: total_chart[:time], type: "column")
+      c.series(name: "Progate: #{progate_chart[:total].to_i} 時間", data: progate_chart[:time])
+      c.series(name: "Railstutorial: #{railstutorial_chart[:total].to_i} 時間", data: railstutorial_chart[:time])
+      c.series(name: "CherryBook: #{cherrybook_chart[:total].to_i} 時間", data: cherrybook_chart[:time])
+      c.series(name: "Flashcards: #{flashcards_chart[:total].to_i} 時間", data: flashcards_chart[:time])
+      c.chart(type: "line")
+    end
+
+    @subject_times = subject_times(seq)
+
+#     Java	JS	SQL	HTML_CSS	PHP	rinux	git			android_studio	servletJSP					info	asteria	Jp1	lifemark-hx
+# 258 	126 	720.083333333333	14 	19 	8 	4 			83 	121 	56 				147 	224	72	864 
+  end
+
+  def chart_day
     seq = Study.all
     firstday = Time.zone.parse('2019-04-23').to_date
     dates = (Time.zone.today.to_date - firstday).to_i
@@ -28,24 +116,26 @@ class StudiesController < ApplicationController
     dates.times do |n|
       x_dates[(firstday + n).to_s] = 0
     end
-    seq.size.times do |n|
-      t = seq[n].ended_at - seq[n].started_at
-      x_dates[seq[n].started_at.to_date.to_s] =+ (t / 3600).round(2)
-    end
 
-    date = []
-    time = []
-    total = 0
-    x_dates.each do |key, value|
-      date << key
-      time << value
-      total += value
-    end
+    total_chart = total_chart(seq, x_dates, :total)
+    progate_chart = total_chart(seq, x_dates, "Progate")
+    railstutorial_chart = total_chart(seq, x_dates, "Railstutorial")
+    cherrybook_chart = total_chart(seq, x_dates, "CherryBook")
+    flashcards_chart = total_chart(seq, x_dates, "Flashcards")
 
     @chart0 = LazyHighCharts::HighChart.new("graph") do |c|
       c.title(text: "Railsの勉強時間")
-      c.xAxis(categories: date)
-      c.series(name: "total: #{total.to_i} 時間", data: time)
+      c.xAxis(categories: total_chart[:date])
+      c.series(name: "total: #{total_chart[:total].to_i} 時間", data: total_chart[:time])
+      c.series(name: "Progate: #{progate_chart[:total].to_i} 時間", data: progate_chart[:time])
+      c.series(name: "Railstutorial: #{railstutorial_chart[:total].to_i} 時間", data: railstutorial_chart[:time])
+      c.series(name: "CherryBook: #{cherrybook_chart[:total].to_i} 時間", data: cherrybook_chart[:time])
+      c.series(name: "Flashcards: #{flashcards_chart[:total].to_i} 時間", data: flashcards_chart[:time])
+      # c.series({ data: [{
+      #   name: "Progate: #{progate_chart[:total].to_i} 時間", y: progate_chart[:time]
+      # }, {
+      #   name: "Railstutorial: #{railstutorial_chart[:total].to_i} 時間", y: railstutorial_chart[:time]
+      # }] })
       c.chart(type: "column")
     end
 
