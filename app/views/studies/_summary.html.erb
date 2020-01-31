@@ -1,0 +1,18 @@
+<h3 class="center">スキルシート</h3>
+
+<table class="table">
+  <tr>
+    <th>年齢</th>
+    <th>性別</th>
+    <th>開発月数</th>
+    <th>保有資格</th>
+  </tr>
+  <% @summary.each_with_index do |job, i| %>
+    <%= content_tag(:tr, :class => i.even? ? 'even' : 'odd') do %>
+      <%= content_tag :td, raw(job[:age]) %>
+      <%= content_tag :td, raw(job[:sex]) %>
+      <%= content_tag :td, raw(job[:work_months]) %>
+      <%= content_tag :td, raw(job[:qualification]) %>
+    <% end %>
+  <% end %>
+</table>

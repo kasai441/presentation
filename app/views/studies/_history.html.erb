@@ -1,0 +1,22 @@
+<h4>経歴</h4>
+
+<table class="table small">
+  <tr>
+    <th>期間</th>
+    <th>プロジェクト</th>
+    <th>業務内容</th>
+    <th>言語・ミドルウェア</th>
+    <th>対応工程</th>
+    <th>体制・役割</th>
+  </tr>
+  <% @jobs.each_with_index do |job, i| %>
+    <%= content_tag(:tr, :class => i.even? ? 'even' : 'odd') do %>
+      <%= content_tag :td, raw(job[:dates]) %>
+      <%= content_tag :td, raw(job[:subject]) %>
+      <%= content_tag :td, raw(job[:task]) %>
+      <%= content_tag :td, raw(job[:language]) %>
+      <%= content_tag :td, raw(job[:category]) %>
+      <%= content_tag :td, raw(job[:team]) %>
+    <% end %>
+  <% end %>
+</table>

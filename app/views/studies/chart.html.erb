@@ -1,25 +1,18 @@
 <div class="container">
   <div class="row">
-    <!-- <div class="col-md-10 col-md-offset-1"> -->
-      <div class="col-md-8">
-        <%= high_chart("my_chart1", @chart1) %>
-      </div>
-      <div class="col-md-4">
-      </div>
-    <!-- </div> -->
+    <div class="col-md-4">
+      <%= render 'summary' %>
+    </div>
+    <div class="col-md-8">
+      <%= render 'skill_graph' %>
+    </div>
   </div>
   <div class="row">
-    <div class="col-md-8">
-      <!-- <h1>学習時間</h1>
-      <p>Ruby on Rails</p> -->
-      <%= high_chart("my_chart0", @chart0) %>
-    </div>
     <div class="col-md-4">
-      <p>合計: <%= @subject_times.inject(:+) %></p>
-      <p>Progate: <%= @subject_times[0] %></p>
-      <p>Rails Tutorial: <%= @subject_times[1] %></p>
-      <p>プロを目指す人のためのRuby入門: <%= @subject_times[2] %></p>
-      <p>自作アプリ「Flashcards」: <%= @subject_times[3] %></p>
+      <%= render 'rails_graph' %>
+    </div>
+    <div class="col-md-8">
+      <%= render 'history' %>
     </div>
   </div>
 </div>

@@ -1,4 +1,5 @@
 class StudiesController < ApplicationController
+  include ApplicationHelper
   def total_chart(seq, x_months, chart_sub)
     x_months.keys.each { |e| x_months[e] = 0 }
     seq.size.times do |n|
@@ -82,12 +83,12 @@ class StudiesController < ApplicationController
 
     @chart0 = LazyHighCharts::HighChart.new("graph") do |c|
       c.title(text: "Railsの勉強時間")
-      c.xAxis(categories: total_chart[:date])
+      c.xAxis(categories: total_chart[:date].map { |e| e + "月" })
       c.series(name: "total: #{total_chart[:total].to_i} 時間", data: total_chart[:time], type: "column")
-      c.series(name: "Progate: #{progate_chart[:total].to_i} 時間", data: progate_chart[:time])
-      c.series(name: "Railstutorial: #{railstutorial_chart[:total].to_i} 時間", data: railstutorial_chart[:time])
-      c.series(name: "CherryBook: #{cherrybook_chart[:total].to_i} 時間", data: cherrybook_chart[:time])
-      c.series(name: "Flashcards: #{flashcards_chart[:total].to_i} 時間", data: flashcards_chart[:time])
+      c.series(name: "Progate 各種講座: #{progate_chart[:total].to_i} 時間", data: progate_chart[:time])
+      c.series(name: "Rails Tutorial: #{railstutorial_chart[:total].to_i} 時間", data: railstutorial_chart[:time])
+      c.series(name: "Ruby入門書（プロを目指す人のためのRuby入門）: #{cherrybook_chart[:total].to_i} 時間", data: cherrybook_chart[:time])
+      c.series(name: "自作アプリ開発「Flashcards」: #{flashcards_chart[:total].to_i} 時間", data: flashcards_chart[:time])
       c.chart(type: "line")
     end
 
@@ -96,19 +97,48 @@ class StudiesController < ApplicationController
     past_sub = ["Java","JavaScript","SQL","PHP","Android","servlet/JSP","基本情報技術者試験","ECサイト開発(ASTERIA Warp/JP1)","電子カルテ保守","その他","Ruby on Rails"]
     past_time = [258,126,720,19,83,121,147,224+72,864,26,386]
 
-
     @chart1 = LazyHighCharts::HighChart.new("graph") do |c|
-      c.title(text: "開発経験 total: #{past_time.inject(:+)} h")
+      c.title(text: "開発経験 total: #{past_time.inject(:+)} 時間")
       c.series({ colorByPoint: true, data: pie_data(past_sub, past_time) })
       c.plotOptions(pie: {
         allowPointSelect: true,
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
-          format: '{point.name}: {y} h ({point.percentage:.1f} %)',
+          format: '{point.name}: {y} 時間 ({point.percentage:.1f} %)',
         }
       })
       c.chart(type: "pie")
+    end
+
+    @jobs = []
+    titles = [:dates, :subject, :task, :language, :category, :team]
+    contents = []
+    contents << ["2004/5\n-\n2006/8\n\n28ヶ月","経営管理事務","・経営計画立案\n・株式上場に向けたアクション\n・議事録など各種ドキュメント作成","","","体制人数：4人\n役職：部長"]
+    contents << ["2007/4\n-\n2009/6\n\n27ヶ月","建築設計／都市デザイン","・建築設計、土木設計\n・CADを使った作図\n・グラフ、統計資料など各種ドキュメント作成","","",""]
+    contents << ["2015/10\n-\n2018/2\n\n29ヶ月","2DCG制作","2DCGゲーム背景作成","Photoshop","","体制人数：1人"]
+    contents << ["2018/2\n-\n2018/7\n\n6ヶ月","プログラミング研修","・Javaサーバーサイド\n・モバイルアプリ開発","Java\nservlet/JSP\nAndroid\nSQL\nPHP","設計\n製造\nテスト",""]
+    contents << ["2018/7\n-\n2018/9\n\n3ヶ月","ECサイト開発","・サーバーサイド\n・データベース","ASTERIA Warp/JP1","製造\nテスト","体制人数：6人"]
+    contents << ["2018/10\n-\n2019/9\n\n12ヶ月","電子カルテシステム保守","・顧客対応\n・データベースリカバリ\n・アップデートテスト","SQL","テスト","体制人数：2-5人"]
+    contents << ["2019/10\n-\n2020/1\n\n4ヶ月","自習","・Rails Tutorial\n・Ruby入門書（プロを目指す人のためのRuby入門）\n・自作アプリ開発「Flashcards」","Ruby on Rails","設計\n製造\nテスト",""]
+    contents.size.times do |i|
+      job = {}
+      titles.each_with_index do |title, j|
+        job[title] = hbr(contents[i][j])
+      end
+      @jobs << job
+    end
+
+    @summary = []
+    titles = [:age, :sex, :work_months, :qualification]
+    contents = []
+    contents << ["38","男","25ヶ月","基本情報技術者\nOracle Java Silver SE 8\nTOEIC 840点"]
+    contents.size.times do |i|
+      summary = {}
+      titles.each_with_index do |title, j|
+        summary[title] = hbr(contents[i][j])
+      end
+      @summary << summary
     end
   end
 
