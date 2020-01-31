@@ -26,33 +26,6 @@ class StudiesController < ApplicationController
     { :date=>date, :time=>time, :total=>total }
   end
 
-
-  def total_chart_day(seq, x_dates, chart_sub)
-    x_dates.keys.each { |e| x_dates[e] = 0 }
-    seq.size.times do |n|
-      t = seq[n].ended_at - seq[n].started_at
-      if chart_sub == :total
-        x_dates[seq[n].started_at.to_date.to_s] += t
-      else
-        case seq[n].subject
-        when chart_sub
-          x_dates[seq[n].started_at.to_date.to_s] += t
-        end
-      end
-    end
-    x_dates.keys.each { |e| x_dates[e] = (x_dates[e] / 3600).round(2) }
-
-    date = []
-    time = []
-    total = 0
-    x_dates.each do |key, value|
-      date << key
-      time << value
-      total += value
-    end
-    { :date=>date, :time=>time, :total=>total }
-  end
-
   def subject_times(seq)
     p = r = c = f = 0
     seq.size.times do |n|
@@ -70,6 +43,22 @@ class StudiesController < ApplicationController
       end
     end
     subject_times = [p, r, c, f].map { |e| (e / 3600).to_i }
+  end
+
+  def pie_data(past_sub, past_time)
+    past_sub.size.times { |n| past_sub[n] = [past_time[n], past_sub[n]]}
+    past_sub = past_sub.sort.reverse
+    past_sub.size.times do |n|
+      if past_sub[n][1] == "その他"
+        past_sub << past_sub[n]
+        past_sub.delete_at(n)
+      end
+    end
+    pie = []
+    past_sub.size.times do |n|
+      pie << { name: past_sub[n][1], y: past_sub[n][0]}
+    end
+    pie
   end
 
   def chart
@@ -104,8 +93,49 @@ class StudiesController < ApplicationController
 
     @subject_times = subject_times(seq)
 
-#     Java	JS	SQL	HTML_CSS	PHP	rinux	git			android_studio	servletJSP					info	asteria	Jp1	lifemark-hx
-# 258 	126 	720.083333333333	14 	19 	8 	4 			83 	121 	56 				147 	224	72	864 
+    past_sub = ["Java","JavaScript","SQL","PHP","Android","servlet/JSP","基本情報技術者試験","ECサイト開発(ASTERIA Warp/JP1)","電子カルテ保守","その他","Ruby on Rails"]
+    past_time = [258,126,720,19,83,121,147,224+72,864,26,386]
+
+
+    @chart1 = LazyHighCharts::HighChart.new("graph") do |c|
+      c.title(text: "開発経験 total: #{past_time.inject(:+)} h")
+      c.series({ colorByPoint: true, data: pie_data(past_sub, past_time) })
+      c.plotOptions(pie: {
+        allowPointSelect: true,
+        cursor: 'pointer',
+        dataLabels: {
+          enabled: true,
+          format: '{point.name}: {y} h ({point.percentage:.1f} %)',
+        }
+      })
+      c.chart(type: "pie")
+    end
+  end
+
+  def total_chart_day(seq, x_dates, chart_sub)
+    x_dates.keys.each { |e| x_dates[e] = 0 }
+    seq.size.times do |n|
+      t = seq[n].ended_at - seq[n].started_at
+      if chart_sub == :total
+        x_dates[seq[n].started_at.to_date.to_s] += t
+      else
+        case seq[n].subject
+        when chart_sub
+          x_dates[seq[n].started_at.to_date.to_s] += t
+        end
+      end
+    end
+    x_dates.keys.each { |e| x_dates[e] = (x_dates[e] / 3600).round(2) }
+
+    date = []
+    time = []
+    total = 0
+    x_dates.each do |key, value|
+      date << key
+      time << value
+      total += value
+    end
+    { :date=>date, :time=>time, :total=>total }
   end
 
   def chart_day
