@@ -119,7 +119,7 @@ class StudiesController < ApplicationController
     contents << ["2015/10\n-\n2018/2\n\n29ヶ月","2DCG制作","2DCGゲーム背景作成","Photoshop","","体制人数：1人"]
     contents << ["2018/2\n-\n2018/7\n\n6ヶ月","プログラミング研修","・Javaサーバーサイド\n・モバイルアプリ開発","Java\nservlet/JSP\nAndroid\nSQL\nPHP","設計\n製造\nテスト",""]
     contents << ["2018/7\n-\n2018/9\n\n3ヶ月","ECサイト開発","・サーバーサイド\n・データベース","ASTERIA Warp/JP1","製造\nテスト","体制人数：6人"]
-    contents << ["2018/10\n-\n2019/9\n\n12ヶ月","電子カルテシステム保守","・顧客対応\n・データベースリカバリ\n・アップデートテスト","SQL","テスト","体制人数：2-5人"]
+    contents << ["2018/10\n-\n2019/9\n\n12ヶ月","電子カルテシステム保守","・顧客対応\n・データベースリカバリ\n・アップデートテスト","SQL","保守\nテスト","体制人数：2-5人"]
     contents << ["2019/10\n-\n2020/1\n\n4ヶ月","自習","・Rails Tutorial\n・Ruby入門書（プロを目指す人のためのRuby入門）\n・自作アプリ開発「Flashcards」","Ruby on Rails","設計\n製造\nテスト",""]
     contents.size.times do |i|
       job = {}
