@@ -65,7 +65,8 @@ class StudiesController < ApplicationController
   def chart
     seq = Study.all
     firstmonth = Time.zone.parse('2019-04-23').month
-    months = Time.zone.today.month - firstmonth + 1
+    # months = Time.zone.today.month - firstmonth + 1
+    months = 2 - firstmonth + 1
     months += 12 if months < 1
 
     x_months = {}
