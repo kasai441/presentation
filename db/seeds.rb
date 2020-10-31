@@ -1,6 +1,6 @@
 require 'csv'
 
-csv_data = CSV.read("db/Ruby_on_Rails_record.csv")
+csv_data = CSV.read("db/coding_record.csv")
 
 csv_data.each do |data|
   started_at = data[0]
