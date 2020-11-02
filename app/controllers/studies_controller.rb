@@ -11,7 +11,7 @@ class StudiesController < ApplicationController
     names = { 
       total: '総計',
       other: 'その他',
-      'java': 'java', 
+      'java': 'Java', 
       'sql': 'SQL',
       'asteria': 'ECサイトバッチプログラム(ASTERIA Warp/JP1)',
       'hospital-system': '電子カルテ保守',
@@ -44,7 +44,7 @@ class StudiesController < ApplicationController
     chart_list.each_value {|e| t << e[:total].to_i}
     @subject_times = t
 
-    make_pie_service = MakePieService.new()
+    make_pie_service = MakePieService.new(chart_list)
     @chart1 = make_pie_service.make_pie
 
     @jobs = []
