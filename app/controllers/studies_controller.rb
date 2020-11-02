@@ -4,16 +4,22 @@ class StudiesController < ApplicationController
   def chart
     seq = Study.all
     # その他に含める項目
-    other_keys = ['unity', 'connpass', 'cobol', 'vba']
+    key_groups = {
+      other: ['unity', 'connpass', 'cobol', 'vba', 'batch'],
+      ruby: ['Progate', 'Railstutorial', 'CherryBook', 'Flashcards', 'presentation', 'paiza', 'atcoder', 'aizu'],
+      js: ['nyobiko', 'JavaScript'],
+    }
     # データ開始日
     start_day = '2018-02-01'
     # 各項目のグラフ表記名
     names = { 
       total: '総計',
       other: 'その他',
+      ruby: 'Ruby on Rails',
+      js: 'JavaScript',
       'java': 'Java', 
       'sql': 'SQL',
-      'asteria': 'ECサイトバッチプログラム(ASTERIA Warp/JP1)',
+      'asteria': 'ASTERIA Warp/JP1',
       'hospital-system': '電子カルテ保守',
       'Progate': 'Progate 各種講座',
       'Railstutorial': 'Rails Tutorial',
@@ -32,7 +38,7 @@ class StudiesController < ApplicationController
       'JavaScript': 'JavaScript' 
     }
 
-    get_chart_list_service = GetChartListService.new(seq, other_keys, start_day, names)
+    get_chart_list_service = GetChartListService.new(seq, key_groups, start_day, names)
     chart_list = get_chart_list_service.get_chart
     # debugger
 
