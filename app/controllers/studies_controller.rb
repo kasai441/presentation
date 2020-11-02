@@ -1,25 +1,5 @@
-require_relative '../services/get_chart_list_service.rb'
-require_relative '../services/make_time_series_service.rb'
-
 class StudiesController < ApplicationController
   include ApplicationHelper
-
-  def pie_data(past_sub, past_time)
-    past_sub.size.times { |n| past_sub[n] = [past_time[n], past_sub[n]]}
-    past_sub = past_sub.sort.reverse
-    # その他を最後にする処理
-    past_sub.size.times do |n|
-      if past_sub[n][1] == "その他"
-        past_sub << past_sub[n]
-        past_sub.delete_at(n)
-      end
-    end
-    pie = []
-    past_sub.size.times do |n|
-      pie << { name: past_sub[n][1], y: past_sub[n][0]}
-    end
-    pie
-  end
 
   def chart
     seq = Study.all
@@ -53,8 +33,6 @@ class StudiesController < ApplicationController
     }
 
     get_chart_list_service = GetChartListService.new(seq, other_keys, start_day, names)
-    x_months = get_chart_list_service.get_x_months
-    seq_keys = get_chart_list_service.get_seq_keys
     chart_list = get_chart_list_service.get_chart
     # debugger
 
@@ -66,22 +44,8 @@ class StudiesController < ApplicationController
     chart_list.each_value {|e| t << e[:total].to_i}
     @subject_times = t
 
-    past_sub = ["Java","JavaScript","SQL","PHP","Android","servlet/JSP","基本情報技術者試験","ECサイト開発(ASTERIA Warp/JP1)","電子カルテ保守","その他","Ruby on Rails"]
-    past_time = [258,126,720,19,83,121,147,224+72,864,26,386]
-
-    @chart1 = LazyHighCharts::HighChart.new("graph") do |c|
-      c.title(text: "開発経験 total: #{past_time.inject(:+)} 時間")
-      c.series({ colorByPoint: true, data: pie_data(past_sub, past_time) })
-      c.plotOptions(pie: {
-        allowPointSelect: true,
-        cursor: 'pointer',
-        dataLabels: {
-          enabled: true,
-          format: '{point.name}: {y} 時間 ({point.percentage:.1f} %)',
-        }
-      })
-      c.chart(type: "pie")
-    end
+    make_pie_service = MakePieService.new()
+    @chart1 = make_pie_service.make_pie
 
     @jobs = []
     titles = [:dates, :subject, :task, :language, :category, :team]
