@@ -1,6 +1,6 @@
-require './app/services/make_pie_service'
-require './app/services/make_time_series_service'
-require_relative '../services/get_chart_list_service'
+# require './app/services/make_pie_service'
+# require './app/services/make_time_series_service'
+# require_relative '../services/get_chart_list_service'
 
 class StudiesController < ApplicationController
   include ApplicationHelper
