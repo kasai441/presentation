@@ -1,6 +1,6 @@
-require '/Users/kasai441/environment/presentation/app/services/get_chart_list_service.rb'
-require '/Users/kasai441/environment/presentation/app/services/make_pie_service.rb'
-require '/Users/kasai441/environment/presentation/app/services/make_time_series_service.rb'
+require_relative './services/get_chart_list_service.rb'
+require_relative './services/make_pie_service.rb'
+require_relative './services/make_time_series_service.rb'
 
 class StudiesController < ApplicationController
   include ApplicationHelper
