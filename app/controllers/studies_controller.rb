@@ -1,3 +1,7 @@
+require_relative '../services/get_chart_list_service.rb'
+require_relative '../services/make_pie_service.rb'
+require_relative '../services/make_time_series_service.rb'
+
 class StudiesController < ApplicationController
   include ApplicationHelper
 
