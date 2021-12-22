@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200122083022) do
+ActiveRecord::Schema.define(version: 2020_01_22_083022) do
 
   create_table "studies", force: :cascade do |t|
     t.datetime "started_at"
