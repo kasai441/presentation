@@ -13,18 +13,18 @@ class StudiesController < ApplicationController
     # その他に含める項目
     key_groups = {
       other: ['unity', 'connpass', 'cobol', 'vba', 'batch'],
-      ruby: ['Progate', 'Railstutorial', 'CherryBook', 'Flashcards', 'presentation', 'paiza', 'atcoder', 'aizu'],
+      ruby: ['Progate', 'Railstutorial', 'CherryBook', 'Flashcards', 'presentation', 'paiza', 'atcoder', 'aizu', 'fjord'],
       js: ['nyobiko', 'JavaScript'],
     }
     # データ開始日
     start_day = '2018-02-01'
     # 各項目のグラフ表記名
-    names = { 
+    names = {
       total: '総計',
       other: 'その他',
       ruby: 'Ruby on Rails',
       js: 'JavaScript',
-      'java': 'Java', 
+      'java': 'Java',
       'sql': 'SQL',
       'asteria': 'ASTERIA Warp/JP1',
       'hospital-system': '電子カルテ保守',
@@ -42,7 +42,8 @@ class StudiesController < ApplicationController
       'cobol': 'cobol',
       'vba': 'vba',
       'batch': 'バッチプログラム開発',
-      'JavaScript': 'JavaScript' 
+      'JavaScript': 'JavaScript',
+      'fjord': 'フィヨルドブートキャンプ'
     }
 
     get_chart_list_service = GetChartListService.new(seq, key_groups, start_day, names)
@@ -86,7 +87,7 @@ class StudiesController < ApplicationController
     now = Time.zone.now.to_date
     age = now.year - dob.year - ((now.month > dob.month || (now.month == dob.month && now.day >= dob.day)) ? 0 : 1)
     work_months = chart_list[:other][:dates].size
-    
+
     contents = []
     contents << [age.to_s,"男","#{work_months}ヶ月","基本情報技術者\nOracle Java Silver SE 8\nTOEIC 840点"]
     contents.size.times do |i|
