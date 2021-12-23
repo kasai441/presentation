@@ -1,16 +1,12 @@
 require './app/services/make_pie_service'
 require './app/services/make_time_series_service'
 require './app/services/get_chart_list_service'
-# require './make_pie_service'
-# require './make_time_series_service'
-# require './get_chart_list_service'
 
 class StudiesController < ApplicationController
   include ApplicationHelper
 
   def chart
     seq = Study.all
-    # その他に含める項目
     key_groups = {
       other: ['unity', 'connpass', 'cobol', 'vba', 'batch'],
       ruby: ['Progate', 'Railstutorial', 'CherryBook', 'Flashcards', 'presentation', 'paiza', 'atcoder', 'aizu', 'fjord'],
@@ -48,7 +44,6 @@ class StudiesController < ApplicationController
 
     get_chart_list_service = GetChartListService.new(seq, key_groups, start_day, names)
     chart_list = get_chart_list_service.get_chart
-    # debugger
 
     chart_title = '時系列 推移'
     make_time_series_service = MakeTimeSeriesService.new(chart_title, chart_list)
