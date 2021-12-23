@@ -1,19 +1,22 @@
 <table class="table">
   <tr>
     <th>ポートフォリオ</th>
+    <th>GitHub</th>
   </tr>
   <%= content_tag(:tr) do %>
-  <%= content_tag :td, link_to("WEB単語帳「Flashcards」", "https://safe-river-31136.herokuapp.com/help") %>
+    <%= content_tag :td, link_to("WEB単語帳「Flashcards」", "https://safe-river-31136.herokuapp.com/help") %>
+    <%= content_tag :td, link_to("flc0.0.0", "https://github.com/kasai441/flc0.0.0") %>
   <% end %>
   <%= content_tag(:tr) do %>
-  <%= content_tag :td, link_to("WEBスキルシート", "https://infinite-ravine-88057.herokuapp.com/") %>
+    <%= content_tag :td, link_to("WEBスキルシート（現在のページ）", "https://infinite-ravine-88057.herokuapp.com/") %>
+    <%= content_tag :td, link_to("presentation", "https://github.com/kasai441/presentation") %>
   <% end %>
-</table>
-<table class="table">
-  <tr>
-    <th>GITHUB</th>
-  </tr>
   <%= content_tag(:tr) do %>
-  <%= content_tag :td, link_to("kasai441", "https://github.com/kasai441") %>
+    <%= content_tag :td, link_to("Wictionaryコマンドライン単語帳（npm）", "https://www.npmjs.com/package/wordquiz") %>
+    <%= content_tag :td, link_to("wordquiz", "https://github.com/kasai441/wordquiz") %>
+  <% end %>
+  <%= content_tag(:tr) do %>
+    <%= content_tag :td, link_to("フィヨルドブートキャンプ「初めてのLT会」発表スライド「ログをみてできるようになること」", "https://speakerdeck.com/kasai441/roguwomitedekiruyouninarukoto") %>
+    <%= content_tag :td %>
   <% end %>
 </table>
