@@ -8,9 +8,11 @@ class StudiesController < ApplicationController
   def chart
     seq = Study.all
     key_groups = {
-      other: ['unity', 'connpass', 'cobol', 'vba', 'batch'],
-      ruby: ['Progate', 'Railstutorial', 'CherryBook', 'Flashcards', 'presentation', 'paiza', 'atcoder', 'aizu', 'fjord'],
-      js: ['nyobiko', 'JavaScript'],
+      other: ['unity', 'connpass', 'cobol', 'vba', 'batch', 'linux', 'git', 'asteria', 'bussiness', 'fjord'],
+      design: ['css', 'prototyping'],
+      db: ['sql', 'db'],
+      rails: ['Progate', 'Railstutorial', 'Flashcards', 'presentation', 'rails', 'genba', 'CherryBook', 'paiza', 'atcoder', 'aizu', 'ruby'],
+      js: ['nyobiko', 'JavaScript', 'vue']
     }
     # データ開始日
     start_day = '2018-02-01'
@@ -18,8 +20,12 @@ class StudiesController < ApplicationController
     names = {
       total: '総計',
       other: 'その他',
-      ruby: 'Ruby on Rails',
+      ruby: 'Ruby',
+      rails: 'Ruby on Rails',
+      db: 'データベース',
       js: 'JavaScript',
+      vue: 'Vue.js',
+      design: 'デザイン',
       'java': 'Java',
       'sql': 'SQL',
       'asteria': 'ASTERIA Warp/JP1',
@@ -39,7 +45,9 @@ class StudiesController < ApplicationController
       'vba': 'vba',
       'batch': 'バッチプログラム開発',
       'JavaScript': 'JavaScript',
-      'fjord': 'フィヨルドブートキャンプ'
+      'fjord': 'フィヨルドブートキャンプ',
+      'vue': 'Vue.js',
+      'genba': '現場Rails輪読会'
     }
 
     get_chart_list_service = GetChartListService.new(seq, key_groups, start_day, names)
