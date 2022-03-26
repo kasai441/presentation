@@ -8,7 +8,7 @@ class StudiesController < ApplicationController
   def chart
     seq = Study.all
     key_groups = {
-      other: ['unity', 'connpass', 'cobol', 'vba', 'batch', 'linux', 'git', 'asteria', 'bussiness', 'fjord'],
+      other: ['unity', 'connpass', 'cobol', 'vba', 'batch', 'linux', 'git', 'asteria', 'business', 'fjord'],
       design: ['css', 'prototyping'],
       db: ['sql', 'db'],
       rails: ['Progate', 'Railstutorial', 'Flashcards', 'presentation', 'rails', 'genba', 'CherryBook', 'paiza', 'atcoder', 'aizu', 'ruby'],
