@@ -2,7 +2,8 @@
 
 <table class="table small">
   <tr>
-    <th>期間</th>
+    <th>開始</th>
+    <th>期間(月)</th>
     <th>プロジェクト</th>
     <th>業務・学習内容</th>
     <th>使用・習得スキル</th>
@@ -11,7 +12,8 @@
   </tr>
   <% @jobs.each_with_index do |job, i| %>
     <%= content_tag(:tr, :class => i.even? ? 'even' : 'odd') do %>
-      <%= content_tag :td, raw(job[:dates]) %>
+      <%= content_tag :td, raw(job[:start]) %>
+      <%= content_tag :td, raw(job[:duration]) %>
       <%= content_tag :td, raw(job[:subject]) %>
       <%= content_tag :td, raw(job[:task]) %>
       <%= content_tag :td, raw(job[:skill]) %>

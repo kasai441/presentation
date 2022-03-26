@@ -65,18 +65,18 @@ class StudiesController < ApplicationController
     @chart1 = make_pie_service.make_pie
 
     @jobs = []
-    titles = [:dates, :subject, :task, :skill, :category, :team]
+    titles = [:start, :duration, :subject, :task, :skill, :category, :team]
     contents = []
-    contents << ["2021/1\n〜\n15ヶ月","【スクール】\nフィヨルドブートキャンプ","Railsプログラマーコース\n・Linux/Git\n・Ruby on Rails\n・JavaScript/Vue.js\n・Railsアプリ「Bootcamp」スクラム\n・自作Railsアプリ「Ruumarker」","【OS, Tool】 MacOS, Linux Debian, bash, zsh, Vi, Git/GitHub\n 【インフラ】 HTTP, Nginx, AWS S3, Heroku, GitHub Action\n 【DB】 Postgresql, Sqlite3, LocalStrage\n 【バックエンド】 Ruby, Sinatra, Ruby on Rails, Node.js\n 【フロントエンド】 JavaScript, Vue.js, Webpack, Babel, HTML/CSS\n 【テスト】 Minitest, Rspec, Jest","設計\n製造\nテスト","アジャイル"]
-    contents << ["2020/9\n〜\n4ヶ月","金融システム\nリプレース（VB.net→Java）","・Javaバッチ\n・Linux Shell\n・Windowsバッチファイル\n・Webアプリ","【OS, Tool】 Linux, Windows, csh, batch file, Eclipse, SVN\n 【DB】 Oracle\n 【バックエンド】 VB.net, Java, Spring Boot, Node.js\n 【フロントエンド】 JavaScript, JQuery, Webpack, CSS\n 【テスト】 JUnit, 手動テスト","設計\n製造\nテスト","ウォーターフォール\n5人体制\nメンバー"]
-    contents << ["2020/7\n〜\n2ヶ月","金融システム\nバッチファイル開発","・Windowsバッチファイル\n・SQLプロシージャ","【OS, Tool】Windows, batch file, サクラエディタ\n 【DB】T-SQL/SQL Server\n【テスト】手動テスト","製造\nテスト","ウォーターフォール\n4人体制\nメンバー"]
-    contents << ["2019/10\n〜\n9ヶ月","【自習】\nRails Tutorial\n自作アプリ開発","・Rails Tutorial\n・Ruby\n・自作Railsアプリ「Flashcards」\n・自作Railsアプリ「WEBスキルシート」\n・N予備校 Node.js学習","【OS, Tool】 Linux Ubuntu, MacOS, Windows, bash, Vi, Git/GitHub\n 【インフラ】VirtualBox, Vagrant, AWS Cloud9, Heroku\n 【DB】 Sqlite3\n 【バックエンド】Ruby, Ruby on Rails, Node.js\n 【フロントエンド】 HTML/CSS\n 【テスト】 Minitest","設計\n製造\nテスト","-"]
-    contents << ["2018/10\n〜\n12ヶ月","電子カルテシステム\n保守","・顧客対応\n・データベースリカバリ\n・アップデートテスト","【OS, Tool】 Windows, サクラエディタ\n 【DB】T-SQL/SQL Server\n 【Script】C#, VBA\n【テスト】手動テスト","保守\nテスト","ウォーターフォール\n2-5人体制\nメンバー"]
-    contents << ["2018/7\n〜\n3ヶ月","ECサイト\nバッチ開発","・ASTERIA Warp, JP1バッチ\n・SQLプロシージャ","【OS, Tool】Windows, ASTERIA Warp, JP1, 秀丸\n 【DB】T-SQL/SQL Server\n 【Script】WSH\n【テスト】手動テスト","製造\nテスト","ウォーターフォール\n6人体制\nメンバー"]
-    contents << ["2018/2\n〜\n6ヶ月","【研修】\nWEBアプリ開発","・Java WEBアプリ\n・Android","【OS, Tool】 Linux, bash, Xampp, Android Studio, Eclipse, Git/GitHub\n 【インフラ】Apache Tomcat\n 【DB】 MariaDB\n 【バックエンド】Java, servlet/JSP, PHP\n 【フロントエンド】JavaScript, HTML/CSS","設計\n製造","ウォーターフォール"]
-    # contents << ["2015/10\n〜\n29ヶ月","2DCG制作","2DCGゲーム背景作成","Photoshop","","体制人数：1人"]
-    # contents << ["2007/4\n〜\n27ヶ月","建築設計／都市デザイン","・建築設計、土木設計\n・CADを使った作図\n・グラフ、統計資料など各種ドキュメント作成","","",""]
-    # contents << ["2004/5\n〜\n28ヶ月","経営管理事務","・経営計画立案\n・株式上場に向けたアクション\n・議事録など各種ドキュメント作成","","","体制人数：4人\n役職：部長"]
+    contents << ["2021/1","15","【スクール】\nフィヨルドブートキャンプ","Railsプログラマーコース\n・Linux/Git\n・Ruby on Rails\n・JavaScript/Vue.js\n・Railsアプリ「Bootcamp」スクラム\n・自作Railsアプリ「Ruumarker」","【OS, Tool】 MacOS, Linux Debian, bash, zsh, Vi, Git/GitHub\n 【インフラ】 HTTP, Nginx, AWS S3, Heroku, GitHub Action\n 【DB】 Postgresql, Sqlite3, LocalStrage\n 【バックエンド】 Ruby, Sinatra, Ruby on Rails, Node.js\n 【フロントエンド】 JavaScript, Vue.js, Webpack, Babel, HTML/CSS\n 【テスト】 Minitest, Rspec, Jest","設計\n製造\nテスト","アジャイル"]
+    contents << ["2020/9","04","金融システム\nリプレース（VB.net→Java）","・Javaバッチ\n・Linux Shell\n・Windowsバッチファイル\n・Webアプリ","【OS, Tool】 Linux, Windows, csh, batch file, Eclipse, SVN\n 【DB】 Oracle\n 【バックエンド】 VB.net, Java, Spring Boot, Node.js\n 【フロントエンド】 JavaScript, JQuery, Webpack, CSS\n 【テスト】 JUnit, 手動テスト","設計\n製造\nテスト","ウォーターフォール\n5人体制\nメンバー"]
+    contents << ["2020/7","02","金融システム\nバッチファイル開発","・Windowsバッチファイル\n・SQLプロシージャ","【OS, Tool】Windows, batch file, サクラエディタ\n 【DB】T-SQL/SQL Server\n【テスト】手動テスト","製造\nテスト","ウォーターフォール\n4人体制\nメンバー"]
+    contents << ["2019/10","09","【自習】\nRails Tutorial\n自作アプリ開発","・Rails Tutorial\n・Ruby\n・自作Railsアプリ「Flashcards」\n・自作Railsアプリ「WEBスキルシート」\n・N予備校 Node.js学習","【OS, Tool】 Linux Ubuntu, MacOS, Windows, bash, Vi, Git/GitHub\n 【インフラ】VirtualBox, Vagrant, AWS Cloud9, Heroku\n 【DB】 Sqlite3\n 【バックエンド】Ruby, Ruby on Rails, Node.js\n 【フロントエンド】 HTML/CSS\n 【テスト】 Minitest","設計\n製造\nテスト","-"]
+    contents << ["2018/10","12","電子カルテシステム\n保守","・顧客対応\n・データベースリカバリ\n・アップデートテスト","【OS, Tool】 Windows, サクラエディタ\n 【DB】T-SQL/SQL Server\n 【Script】C#, VBA\n【テスト】手動テスト","保守\nテスト","ウォーターフォール\n2-5人体制\nメンバー"]
+    contents << ["2018/7","03","ECサイト\nバッチ開発","・ASTERIA Warp, JP1バッチ\n・SQLプロシージャ","【OS, Tool】Windows, ASTERIA Warp, JP1, 秀丸\n 【DB】T-SQL/SQL Server\n 【Script】WSH\n【テスト】手動テスト","製造\nテスト","ウォーターフォール\n6人体制\nメンバー"]
+    contents << ["2018/2","06","【研修】\nWEBアプリ開発","・Java WEBアプリ\n・Android","【OS, Tool】 Linux, bash, Xampp, Android Studio, Eclipse, Git/GitHub\n 【インフラ】Apache Tomcat\n 【DB】 MariaDB\n 【バックエンド】Java, servlet/JSP, PHP\n 【フロントエンド】JavaScript, HTML/CSS","設計\n製造","ウォーターフォール"]
+    # contents << ["2015/10","29","2DCG制作","2DCGゲーム背景作成","Photoshop","","体制人数：1人"]
+    # contents << ["2007/4","27","建築設計／都市デザイン","・建築設計、土木設計\n・CADを使った作図\n・グラフ、統計資料など各種ドキュメント作成","","",""]
+    # contents << ["2004/5","28","経営管理事務","・経営計画立案\n・株式上場に向けたアクション\n・議事録など各種ドキュメント作成","","","体制人数：4人\n役職：部長"]
     contents.size.times do |i|
       job = {}
       titles.each_with_index do |title, j|
