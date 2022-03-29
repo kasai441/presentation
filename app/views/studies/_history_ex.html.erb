@@ -1,0 +1,24 @@
+<h4>エンジニア以前の経歴</h4>
+
+<table class="table small">
+  <tr>
+    <th>開始</th>
+    <th>期間(月)</th>
+    <th>プロジェクト</th>
+    <th>業務・学習内容</th>
+    <th>使用・習得スキル</th>
+    <th>雇用形態</th>
+    <th>体制・役割</th>
+  </tr>
+  <% @ex_jobs.each_with_index do |job, i| %>
+    <%= content_tag(:tr, :class => i.even? ? 'even' : 'odd') do %>
+      <%= content_tag :td, raw(job[:start]) %>
+      <%= content_tag :td, raw(job[:duration]) %>
+      <%= content_tag :td, raw(job[:subject]) %>
+      <%= content_tag :td, raw(job[:task]) %>
+      <%= content_tag :td, raw(job[:skill]) %>
+      <%= content_tag :td, raw(job[:category]) %>
+      <%= content_tag :td, raw(job[:team]) %>
+    <% end %>
+  <% end %>
+</table>
