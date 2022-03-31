@@ -78,8 +78,6 @@ GEM
     hash-deep-merge (0.1.1)
     i18n (1.8.10)
       concurrent-ruby (~> 1.0)
-    jbuilder (2.10.1)
-      activesupport (>= 5.0.0)
     lazy_high_charts (1.6.1)
       hash-deep-merge
     listen (3.1.5)
@@ -195,7 +193,6 @@ DEPENDENCIES
   byebug
   capybara (~> 2.13)
   coffee-rails (~> 4.2)
-  jbuilder (~> 2.5)
   lazy_high_charts
   listen (>= 3.0.5, < 3.2)
   pg (>= 0.20.0)
@@ -212,4 +209,4 @@ DEPENDENCIES
   web-console (>= 3.3.0)
 
 BUNDLED WITH
-   2.1.4
+   2.2.24
