@@ -7,6 +7,6 @@ describe StudiesController, type: :system do
     visit root_url
   end
   it 'is valid with get_chart_list_service' do
-    expect(page).to have_content 'Ruby on Rails'
+    expect(page).to have_content 'スキルシート'
   end
 end

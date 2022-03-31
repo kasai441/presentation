@@ -4,14 +4,15 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.5'
-gem 'bootstrap-sass', '3.4.1'
-gem 'coffee-rails', '~> 4.2'
+gem 'bootstrap-sass'
+gem 'coffee-rails'
 gem 'lazy_high_charts'
-gem 'puma', '~> 4.3'
+gem 'puma'
 gem 'rails', '~> 5.2.7'
-gem 'sass-rails', '~> 5.0'
-gem 'turbolinks', '~> 5'
-gem 'uglifier', '>= 1.3.0'
+gem 'sass-rails'
+gem 'turbolinks'
+gem 'uglifier'
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
@@ -21,21 +22,19 @@ group :development, :test do
 end
 
 group :development do
-  gem 'listen', '~> 3.2.0'
+  gem 'listen'
   gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-  gem 'web-console', '>= 3.3.0'
+  gem 'spring-watcher-listen'
+  gem 'web-console'
 end
 
 group :test do
-  gem 'capybara', '~> 2.13'
+  gem 'capybara'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
 
 group :production do
-  gem 'pg', '>=0.20.0'
+  gem 'pg'
 end
-
-gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
