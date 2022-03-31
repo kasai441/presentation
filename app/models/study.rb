@@ -1,7 +1,7 @@
-class Study < ApplicationRecord
+# frozen_string_literal: true
 
-    def get_list
-        seq_keys = seq.map { |key| key.subject }.uniq
-        ready_x_months
-      end
+class Study < ApplicationRecord
+  def get_list
+    ready_x_months
+  end
 end
