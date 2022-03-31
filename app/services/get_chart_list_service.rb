@@ -22,7 +22,7 @@ class GetChartListService
     seq_keys = seq.map(&:subject).uniq
     # キーごとに時間集計
     seq_keys.each do |key|
-      next if key == :other.to_s
+      next if key.nil? || key == :other.to_s
 
       chart_list[key.downcase.gsub('-', '_').to_sym] = { key: key, name: names[key.to_sym] }.merge(aggregate_time(key))
     end
@@ -40,9 +40,12 @@ class GetChartListService
     ready_x_months
     seq.size.times do |n|
       start_time = seq[n].started_at
-      t = seq[n].ended_at - start_time
+      end_time = seq[n].ended_at
+      t = end_time - start_time if end_time.present?
       # :totalは全レコード、他は各subjectごとに秒で集計
-      x_months["#{start_time.month}-#{start_time.year}"] += t if chart_sub == :total || chart_sub == seq[n].subject
+      if start_time.present? && chart_sub == :total || chart_sub == seq[n].subject
+        x_months["#{start_time.month}-#{start_time.year}"] += t
+      end
     end
     # 秒を時間に
     x_months.each_key { |e| x_months[e] = (x_months[e] / 3600).round(2) }

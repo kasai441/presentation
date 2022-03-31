@@ -3,7 +3,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.6.8'
+ruby '2.7.1'
 gem 'bootstrap-sass', '3.4.1'
 gem 'coffee-rails', '~> 4.2'
 gem 'lazy_high_charts'
@@ -16,6 +16,9 @@ gem 'uglifier', '>= 1.3.0'
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara', '~> 2.13'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
+  gem 'rspec-rails'
   gem 'rubocop'
   gem 'selenium-webdriver'
   gem 'sqlite3'
