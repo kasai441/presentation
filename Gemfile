@@ -8,7 +8,7 @@ gem 'bootstrap-sass'
 gem 'coffee-rails'
 gem 'lazy_high_charts'
 gem 'puma'
-gem 'rails', '6.0.4.7'
+gem 'rails', '6.1.5'
 gem 'sass-rails'
 gem 'turbolinks'
 gem 'uglifier'
@@ -17,7 +17,6 @@ gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'rubocop'
-  gem 'selenium-webdriver'
   gem 'sqlite3'
 end
 
