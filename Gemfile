@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 source 'https://rubygems.org'
+git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+ruby '2.6.8'
 gem 'bootstrap-sass', '3.4.1'
 gem 'coffee-rails', '~> 4.2'
 gem 'lazy_high_charts'
