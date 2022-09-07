@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require './app/services/make_pie_service'
-require './app/services/make_time_series_service'
-require './app/services/get_chart_list_service'
+# require './app/services/make_pie_service'
+# require './app/services/make_time_series_service'
+# require './app/services/get_chart_list_service'
 
 class StudiesController < ApplicationController
   include ApplicationHelper
@@ -51,20 +51,20 @@ class StudiesController < ApplicationController
       'vue': 'Vue.js',
       'genba': '現場Rails輪読会'
     }
-
-    get_chart_list_service = GetChartListService.new(seq, key_groups, start_day, names)
-    chart_list = get_chart_list_service.get_chart
-
-    chart_title = '時系列 推移'
-    make_time_series_service = MakeTimeSeriesService.new(chart_title, chart_list)
-    @chart0 = make_time_series_service.make_series
-
-    t = []
-    chart_list.each_value { |e| t << e[:total].to_i }
-    @subject_times = t
-
-    make_pie_service = MakePieService.new(chart_list)
-    @chart1 = make_pie_service.make_pie
+    #
+    # get_chart_list_service = GetChartListService.new(seq, key_groups, start_day, names)
+    # chart_list = get_chart_list_service.get_chart
+    #
+    # chart_title = '時系列 推移'
+    # make_time_series_service = MakeTimeSeriesService.new(chart_title, chart_list)
+    # @chart0 = make_time_series_service.make_series
+    #
+    # t = []
+    # chart_list.each_value { |e| t << e[:total].to_i }
+    # @subject_times = t
+    #
+    # make_pie_service = MakePieService.new(chart_list)
+    # @chart1 = make_pie_service.make_pie
 
     @jobs = []
     titles = %i[start duration subject task skill category team]
@@ -144,7 +144,8 @@ class StudiesController < ApplicationController
     dob = Time.zone.parse('1981-07-10')
     now = Time.zone.now.to_date
     age = now.year - dob.year - (now.month > dob.month || (now.month == dob.month && now.day >= dob.day) ? 0 : 1)
-    work_months = chart_list[:other][:dates].size
+    # work_months = chart_list[:other][:dates].size
+    work_months = 0
 
     contents = []
     contents << [age.to_s, '男', "#{work_months}ヶ月", "基本情報技術者\nOracle Java Silver SE 8\nTOEIC 840点"]
